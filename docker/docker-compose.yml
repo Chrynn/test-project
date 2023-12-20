@@ -15,3 +15,16 @@ services:
       - ./nginx/default.conf:/etc/nginx/templates/default.conf.template:delegated
     ports:
       - 80:80
+
+  mysql:
+      image: mysql:8.0.29
+      environment:
+          - MYSQL_DATABASE=test
+          - MYSQL_ROOT_PASSWORD=root
+
+  adminer:
+      image: adminer
+      environment:
+          ADMINER_DEFAULT_SERVER: mysql
+      ports:
+          - "1000:8080"
