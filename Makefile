@@ -14,3 +14,10 @@ php:
 
 nginx:
 	docker compose -f docker/docker-compose.yml exec nginx sh;
+
+init\:env:
+	cp .env.example .env
+	make up
+	docker compose -f docker/docker-compose.yml exec php composer install
+	docker compose -f docker/docker-compose.yml exec php php artisan key:generate
+	docker compose -f docker/docker-compose.yml exec php php artisan migrate
